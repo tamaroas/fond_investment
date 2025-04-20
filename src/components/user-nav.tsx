@@ -41,13 +41,15 @@ export function UserNav() {
   const email = administrator?.email ?? customer?.email
   const avatar = (firstname ? firstname[0].toUpperCase() : '') + (lastname ? lastname[0].toUpperCase() : '')
 
-  const processLogout: CallBackResponseUseFetch = (resp) => {
+  const processLogout: any = (resp: any) => {
     setIsLoader(false)
-    if (resp?.success) {
+    // if (resp?.success) {
+    if (true) {
       toast({ description: 'Deconnexion reussit' })
       if (pathname.includes('/admin')) {
         route.push('/login')
       }
+      route.push('/login')
       return setUser(null)
     }
     return toast({ variant: "destructive", description: 'Echec de la Deconnexion!' })
@@ -55,7 +57,8 @@ export function UserNav() {
 
   const signOut = () => {
     setIsLoader(true)
-    userServiceLogout(processLogout)
+    processLogout({})
+    // userServiceLogout(processLogout)
   }
 
 

@@ -10,10 +10,10 @@ export default async function DemoLayout({
   children: React.ReactNode, params: { lang: Langs }
 }) {
 
-  const access_token = userCookies?.access_token
-  if (!access_token) {
-    redirect(`/${params.lang}/login`);
-  }
+  // const access_token = userCookies?.access_token
+  // if (!access_token) {
+  //   redirect(`/${params.lang}/login`);
+  // }
   
 
   const dictionary = await getDictionary(params.lang)

@@ -8,7 +8,7 @@ import { ArrowRightIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Langs } from "@/utils/langs-config";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useUserStore } from "@/store/zustandStores";
 
 const menuItems = [
@@ -68,10 +68,11 @@ export default async function HomePage({
   params: { lang: Langs }
 }>) {
   // const dictionary = await getDictionary(params.lang);
-  const user = useUserStore((state:any) => state.user);
-  // if(!user){
-  //   return redirect('/login');
-  // }
+  const route = useRouter()
+  const user = useUserStore((state: any) => state.user);
+  if (!user) {
+    return route.push('/login')
+  }
 
   return (
     <div className="container mx-auto p-4 mt-8 flex flex-col items-center justify-center">
