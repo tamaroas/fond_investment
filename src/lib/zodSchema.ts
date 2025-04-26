@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 
-export const LoginformSchema = z.object({ "email": z.string().email().min(1).max(255), "password": z.string().min(8).max(255) })
+export const LoginformSchema = z.object({ "login": z.string().email().min(1).max(255), "mot2passe": z.string().min(8).max(255) })
 
 export const RegisterformSchema = z.object({
     lastname: z.string().min(1).max(255),

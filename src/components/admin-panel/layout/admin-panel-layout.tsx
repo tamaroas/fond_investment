@@ -3,41 +3,42 @@
 import { cn } from "@/lib/utils";
 import { useStore } from "@/hooks/use-store";
 import { Footer } from "@/components/admin-panel/footer";
-import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
-import { Sidebar } from "../sidebar/sidebar";
-import { Langs } from "@/utils/langs-config";
+import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";;
 import { useParams } from "next/navigation";
+import { Header } from "@/components/front-panel/header";
+import Sidebar from "../sidebar/sidebar";
 
 export default function AdminPanelLayout({
-  children, dictionary
+  children,
+  dictionary
 }: {
-  children: React.ReactNode, dictionary: any
+  children: React.ReactNode;
+  dictionary: any;
 }) {
   const sidebar = useStore(useSidebarToggle, (state) => state);
-  const params = useParams()
-  const lang = params.lang as string
+  const params = useParams();
+  const lang = params.lang as string;
 
   if (!sidebar) return null;
 
   return (
-    <>
-      <Sidebar lang={lang} dictionary={dictionary} />
-      <main
+    <main className="flex h-screen w-full">
+      <Sidebar />
+      <div
         className={cn(
-          "min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300",
-          sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
+          "bg-zinc-50 dark:bg-zinc-900  ease-in-out duration-300 flex-grow flex h-full flex-col overflow-y-scroll"
         )}
       >
+        {/* <Header dictionary={dictionary} /> */}
         {children}
-      </main>
-      <footer
+        <footer
         className={cn(
-          "transition-[margin-left] ease-in-out duration-300",
-          sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
-        )}
+          "transition-[margin-left] ease-in-out duration-300 w-full ")}
       >
         <Footer />
       </footer>
-    </>
+      </div>
+     
+    </main>
   );
 }

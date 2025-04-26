@@ -27,3 +27,12 @@ export type ViaziCustomer = {
     administrator: Administrator | null
 }
 
+export type UserType = {
+    id: string;
+    nom: string;
+    prenom: string;
+    email: string;
+    role: string;
+    telephone: string;
+}
+

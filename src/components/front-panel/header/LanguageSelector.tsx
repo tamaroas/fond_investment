@@ -33,12 +33,12 @@ export function LanguageSelector(props : Props){
     ]
 
 
- const path = (() => {
-    if(typeof Window != undefined){
-        let pathname = window.location.pathname.split('/').slice(2).join('/') + "/"
-        return pathname + window.location.search
-    }
- })()
+//  const path = (() => {
+//     if(typeof Window != undefined){
+//         let pathname = window.location.pathname.split('/').slice(2).join('/') + "/"
+//         return pathname + window.location.search
+//     }
+//  })()
 
 const curren_lang = langs.find(_lang => _lang.iso.toLocaleLowerCase() === lang.toLocaleLowerCase()) ?? langs[0]
     return (
@@ -52,7 +52,7 @@ const curren_lang = langs.find(_lang => _lang.iso.toLocaleLowerCase() === lang.t
                     {
                         langs.map(_lang =>
                             <div key={_lang.id} className=''>
-                                <li><Link href={`/${_lang.iso.toLocaleLowerCase() + '/' + path}`} className={`flex  gap-1 ${curren_lang.id === _lang.id ? ' cursor-not-allowed opacity-50' : 'hover:underline hover:text-blue-sfo'}`}>
+                                <li><Link href={`/${_lang.iso.toLocaleLowerCase() + '/'}`} className={`flex  gap-1 ${curren_lang.id === _lang.id ? ' cursor-not-allowed opacity-50' : 'hover:underline hover:text-blue-sfo'}`}>
                                         <img src={_lang.flag.src} width={12} height={12} alt={_lang.name} />
                                         <span>{_lang.iso}</span>
                                     </Link>
