@@ -34,7 +34,7 @@ function TableRowCompte({ compte, onDelete, onEdit, isDeleting }: TableRowCompte
   return (
     <TableRow key={compte.id}>
       <TableCell>{compte.id}</TableCell>
-      <TableCell>{compte.numeroCompte || "N/A"}</TableCell>
+      <TableCell>{compte.codeAgence}-{compte.numeroCompte || "N/A"}-{compte.cle || "N/A"}</TableCell>
       <TableCell>{compte.typeCompte}</TableCell>
       <TableCell>{compte.solde !== undefined ? `${compte.solde} FCFA` : "N/A"}</TableCell>
       <TableCell>{compte.dateOuvertureCompte || "N/A"}</TableCell>
@@ -43,17 +43,18 @@ function TableRowCompte({ compte, onDelete, onEdit, isDeleting }: TableRowCompte
           <Button 
             variant="ghost" 
             size="icon" 
+            disabled
             onClick={() => onEdit(compte)}
           >
-            <Pencil className="h-4 w-4 text-blue-500" />
+            <Pencil className="h-4 w-4 text-gray-500" />
           </Button>
           <Button 
             variant="ghost" 
             size="icon" 
+            disabled 
             onClick={() => onDelete(compte.id || "")}
-            disabled={isDeleting}
           >
-            <Trash className="h-4 w-4 text-red-500" />
+            <Trash className="h-4 w-4 text-gray-500" />
           </Button>
         </div>
       </TableCell>
@@ -402,7 +403,7 @@ const CompteUserClientTab = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
-                <TableHead>Numéro de compte</TableHead>
+                <TableHead>RIB</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Solde</TableHead>
                 <TableHead>Date de création</TableHead>

@@ -419,7 +419,7 @@ export function TableRowUserClient({
       <TableCell>{client.email}</TableCell>
       <TableCell>{client.telephone}</TableCell>
       <TableCell>{client.nationalite}</TableCell>
-      <TableCell>
+      <TableCell className=" flex items-center justify-center">
         {client.nbreCompte === 0 ? (
           <div>
             <span className="text-white bg-orange-500 px-2 py-1 rounded-full whitespace-nowrap">
