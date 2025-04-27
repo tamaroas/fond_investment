@@ -13,13 +13,13 @@ export interface NavItem {
 
 export const navigationItems:  NavItem[]  = [
   {
-    href: "/dashboard",
+    href: "/admin",
     iconComponent: House ,
     translationKey: "Dashboard",
   },
 
   {
-    translationKey: "Gestion des Comptes",
+    translationKey: "Gestion des Clients",
     iconComponent: Users,
     href: "/admin/users"
   },

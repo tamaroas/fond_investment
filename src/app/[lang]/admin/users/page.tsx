@@ -60,6 +60,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 // Schema for edit form - partial version of UserClientSchema for editing
 const EditUserClientSchema = UserClientSchema.partial().required({
@@ -157,11 +158,13 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
   };
 
   const editUserClient = useMemo(() => {
-    return<CreateUserClientModdal
-    open={isEditDialogOpen}
-    setOpen={setIsEditDialogOpen}
-    userClient={selectedClient}
-  />;
+    return (
+      <CreateUserClientModdal
+        open={isEditDialogOpen}
+        setOpen={setIsEditDialogOpen}
+        userClient={selectedClient}
+      />
+    );
   }, [selectedClient, editUserClientMutation]);
   // Handle delete
   const handleDelete = () => {
@@ -184,7 +187,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
       toast({
         title: "Erreur",
         description: "Impossible de rafraîchir les données",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsRefreshing(false);
@@ -224,7 +227,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
 
   return (
     <ContentLayout
-      title={dictionary.users || "Utilisateurs"}
+      title={"Gestion des clients"}
       dictionary={dictionary}
     >
       <BreadcrumbCustom options={options_bread} />
@@ -284,6 +287,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
                   <TableHead>Email</TableHead>
                   <TableHead>Téléphone</TableHead>
                   <TableHead>Nationalité</TableHead>
+                  <TableHead>Nombre de compte</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -302,6 +306,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
                       setSelectedClient={setSelectedClient}
                       setIsEditDialogOpen={setIsEditDialogOpen}
                       setIsDeleteDialogOpen={setIsDeleteDialogOpen}
+                      params={params}
                     />
                   ))
                 )}
@@ -337,7 +342,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
           </div>
         </>
       )}
-{editUserClient}
+      {editUserClient}
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
@@ -388,17 +393,26 @@ interface TableRowUserClientProps {
   setSelectedClient: (client: UserClientType) => void;
   setIsEditDialogOpen: (open: boolean) => void;
   setIsDeleteDialogOpen: (open: boolean) => void;
+  params: { lang: Langs };
 }
 
 export function TableRowUserClient({
   client,
   setSelectedClient,
   setIsEditDialogOpen,
-  setIsDeleteDialogOpen
+  setIsDeleteDialogOpen,
+  params
 }: TableRowUserClientProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
   return (
-    <TableRow key={client.id}>
+    <TableRow
+      key={client.id}
+      className="cursor-pointer hover:bg-gray-100"
+      onClick={() => {
+        router.push(`/${params.lang}/admin/users/${client.id}`);
+      }}
+    >
       <TableCell>{client.id}</TableCell>
       <TableCell>{client.nom}</TableCell>
       <TableCell>{client.prenom}</TableCell>
@@ -406,6 +420,19 @@ export function TableRowUserClient({
       <TableCell>{client.telephone}</TableCell>
       <TableCell>{client.nationalite}</TableCell>
       <TableCell>
+        {client.nbreCompte === 0 ? (
+          <div>
+            <span className="text-white bg-orange-500 px-2 py-1 rounded-full whitespace-nowrap">
+              Aucun compte
+            </span>
+          </div>
+        ) : (
+          <span className="text-white bg-green-500 px-2 py-1 rounded-full whitespace-nowrap">
+            {client.nbreCompte}
+          </span>
+        )}
+      </TableCell>
+      <TableCell onClick={(e) => e.stopPropagation()}>
         <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">

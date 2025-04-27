@@ -34,5 +34,6 @@ export type UserType = {
     email: string;
     role: string;
     telephone: string;
+    agenceId?: string;
 }
 
