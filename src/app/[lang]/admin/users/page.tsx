@@ -50,7 +50,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CreateUserClientModdal from "@/components/userClient/createUserClientModdal";
 import { useUserClient } from "@/hooks/use-userClient";
 import { UserClientSchema, UserClientType } from "@/schemas/userClient-schema";
@@ -90,7 +90,8 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
     isLoading,
     error,
     editUserClientMutation,
-    deleteUserClientMutation
+    deleteUserClientMutation,
+    refetch
   } = useUserClient();
   const queryClient = useQueryClient();
 
@@ -155,6 +156,13 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
     }
   };
 
+  const editUserClient = useMemo(() => {
+    return<CreateUserClientModdal
+    open={isEditDialogOpen}
+    setOpen={setIsEditDialogOpen}
+    userClient={selectedClient}
+  />;
+  }, [selectedClient, editUserClientMutation]);
   // Handle delete
   const handleDelete = () => {
     if (selectedClient) {
@@ -169,8 +177,18 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
   // Handle refresh
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await queryClient.invalidateQueries({ queryKey: ["userClients"] });
-    setIsRefreshing(false);
+    try {
+      await refetch();
+    } catch (error) {
+      console.error("Erreur lors du rafraîchissement des données:", error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de rafraîchir les données",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   // Filter clients based on search term
@@ -319,12 +337,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
           </div>
         </>
       )}
-
-      <CreateUserClientModdal
-        open={isEditDialogOpen}
-        setOpen={setIsEditDialogOpen}
-        userClient={selectedClient}
-      />
+{editUserClient}
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">

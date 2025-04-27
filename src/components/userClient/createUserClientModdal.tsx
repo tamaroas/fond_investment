@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { 
@@ -43,8 +43,10 @@ interface CreateUserClientModdalProps {
 }
 
 export default function CreateUserClientModdal({open, setOpen, userClient,children}: CreateUserClientModdalProps) {
-  const {createUserClientMutation, editUserClientMutation} = useUserClient();
+  const {createUserClientMutation, editUserClientMutation, refetch} = useUserClient();
   const {user} = useUserStore();
+  console.log(userClient);
+  
   
   const form = useForm<UserClientType>({
     resolver: zodResolver(UserClientSchema),
@@ -74,6 +76,9 @@ export default function CreateUserClientModdal({open, setOpen, userClient,childr
         await createUserClientMutation.mutateAsync(data);
       }
       
+      // Forcer un refetch manuel après la mutation pour s'assurer que les données sont à jour
+      await refetch();
+      
       form.reset();
       setOpen(false);
     } catch (error) {
@@ -82,6 +87,23 @@ export default function CreateUserClientModdal({open, setOpen, userClient,childr
     }
   }
 
+  useEffect(() => {
+    if (userClient) {
+      form.reset({
+        gestionnaireId: user?.id || "",
+        nom: userClient?.nom || "",
+        prenom: userClient?.prenom || "",
+        dateNaissance: userClient?.dateNaissance || "",
+        lieuNaissance: userClient?.lieuNaissance || "",
+        adresse: userClient?.adresse || "",
+        email: userClient?.email || "",
+        telephone: userClient?.telephone || "",
+        numeroCni: userClient?.numeroCni || "",
+        sexe: userClient?.sexe || "MASCULIN",
+        nationalite: userClient?.nationalite || "",
+      });
+    }
+  }, [userClient, form]);
   return (
     <div className="flex justify-end mb-4">
       <Dialog open={open} onOpenChange={setOpen}>

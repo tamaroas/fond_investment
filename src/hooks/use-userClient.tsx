@@ -16,7 +16,8 @@ export const useUserClient = () => {
       return response;
     },
     onSuccess: (response): void => {
-      queryClient.invalidateQueries({ queryKey: ["userClients"] });
+      // Invalider la requête et forcer un refetch immédiat
+      queryClient.invalidateQueries({ queryKey: ["userClients"], refetchType: 'all' });
       toast({
         variant: "default",
         title: "Client créé avec succès",
@@ -37,7 +38,8 @@ export const useUserClient = () => {
       return await userClientService.updateUserClient(data?.id || "", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["userClients"] });
+      // Invalider la requête et forcer un refetch immédiat
+      queryClient.invalidateQueries({ queryKey: ["userClients"], refetchType: 'all' });
       toast({
         title: "Client modifié avec succès",
         description: "Les informations du client ont été mises à jour",
@@ -58,7 +60,8 @@ export const useUserClient = () => {
       return await userClientService.deleteUserClient(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["userClients"] });
+      // Invalider la requête et forcer un refetch immédiat
+      queryClient.invalidateQueries({ queryKey: ["userClients"], refetchType: 'all' });
       toast({
         title: "Client supprimé avec succès",
         description: "Le client a été supprimé de la base de données",
@@ -73,13 +76,14 @@ export const useUserClient = () => {
     },
   });
 
-  const {data, isLoading, error} = useQuery({
+  const {data, isLoading, error, refetch} = useQuery({
     queryKey: ["userClients"],
     queryFn: async () => {
       const response = await userClientService.getUserClients();
-      
       return response;
     },
+    // Ajouter staleTime pour contrôler quand les données sont considérées comme périmées
+    staleTime: 1000 * 60, // 1 minute
   });
 
   return {
@@ -87,6 +91,7 @@ export const useUserClient = () => {
     data,
     isLoading,
     error,
+    refetch, // Exporter la fonction refetch pour permettre des actualisations manuelles
     editUserClientMutation,
     deleteUserClientMutation,
   };
