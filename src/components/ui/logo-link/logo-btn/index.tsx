@@ -13,7 +13,7 @@ export default function LogoBtn(props: Props) {
             className="flex items-center hover:opacity-85 transition-opacity duration-300"
         >
             <Image
-                src="/assets/images/ViaziPay.png"
+                src="/assets/images/.png"
                 width={100}
                 height={100}
                 alt="demo-dark"
@@ -21,7 +21,7 @@ export default function LogoBtn(props: Props) {
                 className="hidden dark:block dark:shadow-gray-500/5"
             />
             <Image
-                src="/assets/images/ViaziPay.png"
+                src="/assets/images/.png"
                 width={100}
                 height={100}
                 alt="demo-dark"

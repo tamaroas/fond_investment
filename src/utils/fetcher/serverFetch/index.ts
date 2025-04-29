@@ -17,7 +17,8 @@ const serverFetch = (server_access_token?: string) => {
 
             const headers = new Headers();
 
-            const access_token = (server_access_token && server_access_token != '') ? server_access_token : userCookies?.access_token;
+            // const access_token = (server_access_token && server_access_token != '') ? server_access_token : userCookies?.access_token;
+            const access_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyLDYyMTAxMDEwMSIsInJvbGVzIjpbIkdFU1RJT05OQUlSRSJdLCJpc3MiOiJMQVRSVVNULUFQSSIsImlhdCI6MTc0NTc0NjEyNCwiZXhwIjoxNzQ1NzQ3OTI0fQ.qzKy2_lw4YBUfAVf7eaf-2Y4aqNtBg8XR1JWKDzwUIY"
             if (access_token) {
                 headers.append("Authorization", `Bearer ${access_token}`)
             }
@@ -46,7 +47,7 @@ const serverFetch = (server_access_token?: string) => {
                 } else {
                     console.error('Unexpected error:', e);
                 }
-                throw e; // Propager l'erreur pour gestion ultérieure
+                throw e;
             }
         }
     }
@@ -61,20 +62,23 @@ const serverFetch = (server_access_token?: string) => {
             data = await response.text();
         }
 
-        if (!response.ok) {
-            const error = {
-                status: response.status,
-                statusText: response.statusText,
-                data,
-            };
-            console.error('Response error:', error);
-            throw error;
-        }
+        // if (!response.ok) {
+        //     const error = {
+        //         status: response.status,
+        //         statusText: response.statusText,
+        //         data,
+        //     };
+        //     console.error('Response error:', error);
+        //     throw error;
+        // }
 
         if (data.status === 200 && data.message.includes('SUCCESS')) {
             data.success = true
+        } else {
+            data.success = false
+            data.message = data.message ?? data?.errror
         }
-            
+
         return data
     }
 }

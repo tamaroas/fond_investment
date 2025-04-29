@@ -16,7 +16,7 @@ export default function LogoLink(props: Props) {
             className="flex items-center hover:opacity-85 transition-opacity duration-300"
         >
             <Image
-                src="/assets/images/Viazi-PAY2.png"
+                src="/logo.jpeg"
                 width={200}
                 height={100}
                 alt="demo-dark"
@@ -24,7 +24,7 @@ export default function LogoLink(props: Props) {
                 className="hidden dark:block dark:shadow-gray-500/5"
             />
             <Image
-                src="/assets/images/Viazi-PAY.png"
+                src="/logo.jpeg"
                 width={200}
                 height={100}
                 alt="demo-dark"

@@ -16,13 +16,13 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    let response = await serverFetch().get(api_route().pagination.transaction.replace('[PAGE]',page?? "0"));
+    // let response = await serverFetch().get(api_route().pagination.transaction.replace('[PAGE]',page?? "0"));
         
-    if (response.status === 200 && response.message.includes('SUCCESS')) {
-        response.success = true;
-        response.datas = response?.datas;
-    }
+    // if (response.status === 200 && response.message.includes('SUCCESS')) {
+    //     response.success = true;
+    //     response.datas = response?.datas;
+    // }
 
-    return NextResponse.json(response);
+    // return NextResponse.json(response);
 
 }

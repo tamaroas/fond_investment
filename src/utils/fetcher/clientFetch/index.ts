@@ -3,7 +3,7 @@ import { Helps } from "@/utils/helps";
 import { redirect } from "next/navigation";
 
 
-const clientFetch = async ({ url, method, body, cache, revalidate, tags, callback, priority }: { url: string, method: "GET" | "POST" | "PUT" | "DELETE", body?: any, cache?: 'force-cache' | 'no-store' | 'default' | null, revalidate?: number | null, tags?: string[] | null, callback?: (response: ResponseUseFetchClient) => void, priority?: "auto" | "high" | "low" }) => {
+const clientFetch = async ({ url, method, body, cache, revalidate, tags, callback, priority }: { url: string, method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH", body?: any, cache?: 'force-cache' | 'no-store' | 'default' | null, revalidate?: number | null, tags?: string[] | null, callback?: (response: ResponseUseFetchClient) => void, priority?: "auto" | "high" | "low" }) => {
 
     const headers = new Headers()
     headers.append("Authorization", `${Helps.client_api_key}`);
@@ -37,12 +37,10 @@ const clientFetch = async ({ url, method, body, cache, revalidate, tags, callbac
     }
 
     requestOptions.next = next;
-    console.log("url", url, requestOptions)
     try {
-        const res = await fetch(url, requestOptions);
+        const res = await fetch(url, requestOptions); 
         const data: ResponseUseFetchClient = await res.json();
-
-        if (data.status !== 200 || data.message !== 'SUCCESS!') {
+        if (data.status !== 200 || data.statusText !== 'OK') {
             if (data?.status == Helps.code_authentication) {
                 if (IS_SERVER) {
                     await fetch(`${Helps.local_api_url}/api/logout?no_fetch=1`, { method: "GET" })
@@ -81,7 +79,7 @@ const clientFetch = async ({ url, method, body, cache, revalidate, tags, callbac
             success: false,
             message: error.message,
             status: 500,
-            datas: null
+            content: null
         };
 
         if (callback) {

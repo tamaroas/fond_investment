@@ -1,6 +1,6 @@
 
 import { ContentLayout } from "@/components/admin-panel/layout/content-layout";
-import { ContentUsers } from "@/components/admin-panel/users/ContentUsers";
+import { ContentAddUsersWithContract } from "@/components/admin-panel/users/ContentAddUsersWithContract";
 import { BreadcrumbCustom } from "@/components/ui/breadcrumb";
 import { getDictionary } from "@/utils/getDictionary";
 import { Langs } from "@/utils/langs-config";
@@ -21,6 +21,10 @@ export default async function UsersPage({ params }: { params: { lang: Langs } })
       path: `/${params.lang}/admin`
     },
     {
+      path: `/${params.lang}/admin/users`,
+      label: dictionary.users,
+    },
+    {
       path: undefined,
       label: dictionary.users
     },
@@ -30,7 +34,7 @@ export default async function UsersPage({ params }: { params: { lang: Langs } })
   return (
     <ContentLayout title={dictionary.users} dictionary={dictionary}>
       <BreadcrumbCustom options={options_bread} />
-      <ContentUsers users={users} />
+      <ContentAddUsersWithContract />
 
     </ContentLayout>
   );

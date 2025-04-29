@@ -7,12 +7,12 @@ export function Footer() {
         <p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
           ©Copyright {" "}
           <Link
-            href="https://ViaziPay.com"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            ViaziPay
+             
           </Link>{" "}
           2024
         </p>
