@@ -1,4 +1,4 @@
-import { CompteType } from "@/schemas/userClient-schema";
+import { AffiliationType, CompteType, TypeContratType } from "@/schemas/userClient-schema";
 import { HttpService } from "./base-services";
 
 export type CompteResponse = {
@@ -11,6 +11,24 @@ export type GetCompteResponse = {
     message: string;
     status: number;
     content: CompteType[];
+}
+
+export type GetTypeCompteResponse = {
+  message: string;
+  status: number;
+  content: TypeContratType[];
+}
+
+export type CreateContratCompteResponse = {
+  message: string;
+  status: number;
+  content: AffiliationType;
+}
+
+export type GetContratResponse = {
+  message: string;
+  status: number;
+  content: AffiliationType[];
 }
 
 export class CompteService extends HttpService {
@@ -36,6 +54,16 @@ export class CompteService extends HttpService {
   
   public async getCompteById(id: string): Promise<CompteResponse> {
     return this.get(`/compte/${id}`);
+  }
+
+  public async getTypeContrats(): Promise<GetTypeCompteResponse> {
+    return this.get(`/type-contrat`);
+  }
+  public async createContratCompte(data: AffiliationType): Promise<CreateContratCompteResponse> {
+    return this.post(`/contrat`, data);
+  }
+  public async getContratsByClientId(clientId: string): Promise<GetContratResponse> {
+    return this.get(`/contrat/client/${clientId}`);
   }
 }
 

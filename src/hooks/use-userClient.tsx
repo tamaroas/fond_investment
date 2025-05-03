@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { CompteType, UserClientType } from "@/schemas/userClient-schema";
+import { AffiliationType, CompteType, UserClientType } from "@/schemas/userClient-schema";
 import userClientService from "@/services/userClient-services";
 import { useQueryClient } from "@tanstack/react-query";
 import compteService from "@/services/compte-services";
@@ -177,6 +177,36 @@ export const useCompteClient = (clientId: string) => {
      staleTime: 1000 * 60, // 1 minute
    });
  
+
+   const CreateContratCompteMutation = useMutation({
+    mutationFn: async (data:AffiliationType) => {
+      return await compteService.createContratCompte(data);
+    },
+    onSuccess: () => {
+      // Invalider la requête et forcer un refetch immédiat
+      queryClient.invalidateQueries({ queryKey: ["contrat"+ clientId], refetchType: 'all' });
+      toast({
+        title: "Contrat créé avec succès",
+        description: "Le contrat a été créé avec succès",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erreur lors de la création du contrat",
+        description: error.data.message || "Une erreur est survenue",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const listContrats = useQuery({
+    queryKey: ["contrat"+ clientId],
+    queryFn: async () => {
+      const response = await compteService.getContratsByClientId(clientId);
+      return response.content || [];
+    },
+    initialData: () => queryClient.getQueryData(["contrat"+ clientId])
+  });
    return {
      data,
      isLoading,
@@ -185,6 +215,8 @@ export const useCompteClient = (clientId: string) => {
      createCompteMutation,
      editCompteMutation,
      deleteCompteMutation,
+     CreateContratCompteMutation,
+     listContrats: listContrats.data,
    };
  };
  

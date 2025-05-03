@@ -287,7 +287,7 @@ export default function UsersPage({ params }: { params: { lang: Langs } }) {
                   <TableHead>Email</TableHead>
                   <TableHead>Téléphone</TableHead>
                   <TableHead>Nationalité</TableHead>
-                  <TableHead>Nombre de compte</TableHead>
+                  <TableHead>Compte</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -420,15 +420,14 @@ export function TableRowUserClient({
       <TableCell>{client.telephone}</TableCell>
       <TableCell>{client.nationalite}</TableCell>
       <TableCell className=" flex items-center justify-center">
-        {client.nbreCompte === 0 ? (
+        {client.hasCompte === false ? (
           <div>
             <span className="text-white bg-orange-500 px-2 py-1 rounded-full whitespace-nowrap">
               Aucun compte
             </span>
           </div>
         ) : (
-          <span className="text-white bg-green-500 px-2 py-1 rounded-full whitespace-nowrap">
-            {client.nbreCompte}
+          <span className="text-white bg-green-500 p-2 rounded-full whitespace-nowrap">
           </span>
         )}
       </TableCell>

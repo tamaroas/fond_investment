@@ -27,10 +27,12 @@ export const useLogin = () => {
       });
       router.push("/admin");
     },
-    onError: (error: Error) => {
+    onError: (error: any) => {
+      console.log(error);
+      
       toast({
         title: "Login failed",
-        description: error.message,
+        description: error.data.message,
         variant: "destructive",
       });
     },

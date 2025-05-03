@@ -217,10 +217,10 @@ const CompteUserClientTab = () => {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Comptes</CardTitle>
-          <CardDescription>Liste des comptes du client</CardDescription>
+          <CardTitle>Compte</CardTitle>
+          <CardDescription>Comptes du client</CardDescription>
         </div>
-        <Dialog open={isCompteDialogOpen} onOpenChange={setIsCompteDialogOpen}>
+        { (!comptesData || comptesData.length === 0)&&<Dialog open={isCompteDialogOpen} onOpenChange={setIsCompteDialogOpen}>
           <DialogTrigger asChild>
             <Button className="flex items-center gap-1">
               <Plus className="h-4 w-4" />
@@ -307,7 +307,7 @@ const CompteUserClientTab = () => {
               </form>
             </Form>
           </DialogContent>
-        </Dialog>
+        </Dialog>}
         
         {/* Dialogue d'édition de compte */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
