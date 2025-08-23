@@ -1,10 +1,10 @@
-import { ViaziCustomer } from "@/utils/type/otherType";
+import { UserType } from "@/utils/type/otherType";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type UserStore = {
-    user: ViaziCustomer | null;
-    setUser: (user: ViaziCustomer | null) => void;
+    user: UserType | null;
+    setUser: (user: UserType | null) => void;
     clearUser: () => void;
 }
 

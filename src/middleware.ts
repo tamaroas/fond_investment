@@ -25,6 +25,13 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const searchParams = request.nextUrl.search;
 
+  // Redirect root path to login page
+  if (pathname === '/'||pathname === '/fr' || pathname === '/en') {
+    const lang = getLocale(request);
+    const loginUrl = new URL(`/${lang}/login`, request.nextUrl);
+    return NextResponse.redirect(loginUrl + searchParams);
+  }
+
   // Check if there is any supported lang in the pathname
   const pathnameIsMissingLocale = langsConfig.langs.every(
     (lang) => !pathname.startsWith(`/${lang}`) && pathname !== `/${lang}`

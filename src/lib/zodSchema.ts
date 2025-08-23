@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 
-export const LoginformSchema = z.object({ "email": z.string().email().min(1).max(255), "password": z.string().min(8).max(255) })
+export const LoginformSchema = z.object({ "login": z.string().email().min(1).max(255), "mot2passe": z.string().min(8).max(255) })
 
 export const RegisterformSchema = z.object({
     lastname: z.string().min(1).max(255),
@@ -46,8 +46,8 @@ export const EditformUserSchema = z.object({
 })
 
 export const EditformSetting = z.object({
-    name:z.string().min(1).max(255),
-    value:z.string().min(1).max(255)
+    name: z.string().min(1).max(255),
+    value: z.string().min(1).max(255)
 })
 
 export const WithdrawalMethodOmformSchema = z.object({
@@ -74,12 +74,12 @@ export const WithdrawalMethodBankformSchema = z.object({
     bank_iban: z.string().min(5).max(255),
     bank_swift: z.string().min(5).max(255),
     password: z.string().min(8).max(255).optional(),
-}) 
+})
 
 export const InitializeWithdrawalformSchema = z.object({
     id_withdrawal: z.string().min(1).max(255),
     amount: z.string()
-    .transform((val) => parseFloat(val)),
+        .transform((val) => parseFloat(val)),
     password: z.string().min(8).max(255).optional(),
 })
 
@@ -94,6 +94,19 @@ export const AddWithdrawalMethodformSchema = z.object({
 })
 
 export const ValidateWithdrawalformSchema = z.object({
-    id_payment_method:  z.string().min(1),
+    id_payment_method: z.string().min(1),
     password: z.string().min(8).max(255).optional(),
 })
+
+
+export const ChefAgenceFormSchema = z.object({
+    nom: z.string().min(1, "Le nom est requis"),
+    prenom: z.string().min(1, "Le prénom est requis"),
+    username: z.string().min(1, "Le username est requis"),
+    telephone: z.string().min(8, "Le téléphone est requis").max(20),
+    email: z.string().email("Email invalide").min(1, "L'email est requis"),
+    mot2passe: z.string().min(8, "Mot de passe trop court").max(255).optional(),
+    agenceId: z.string().min(1, "L'agence est requise"),
+});
+
+export type ChefAgenceFormType = z.infer<typeof ChefAgenceFormSchema>;

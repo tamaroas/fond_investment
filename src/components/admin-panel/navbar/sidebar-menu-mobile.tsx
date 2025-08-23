@@ -29,10 +29,10 @@ export function SidebarMenuMobile({ isOpen, dictionary, SheetMenu }: MenuProps) 
   const pathname = usePathname();
   const params = useParams()
   const lang = params.lang as string
-  const menuList = getSidebarMenuList(pathname, lang, dictionary, user)
-  if (!user) {
-    return;
-  }
+  const menuList = getSidebarMenuList(pathname, lang, dictionary,null)
+  // if (!user) {
+  //   return;
+  // }
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">

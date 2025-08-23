@@ -179,6 +179,162 @@ export function getSidebarMenuList(pathname: string, lang: Langs | string, dicti
     })
 
   }
+
+  /** 
+   * Chef d'agence avec accès aux fonctionnalités gestionnaire + gestion d'équipe
+   */
+  if (isChefAgence(user)) {
+    menu.forEach((group) => {
+      switch (group.groupLabel) {
+        case 'Contents':
+          // Accès aux fonctionnalités gestionnaire
+          group.menus.push(
+            {
+              href: `/${lang}/admin/transactions`,
+              label: dictionary.transactions || "Transactions",
+              active: pathname.includes("/transactions"),
+              icon: ArrowRightLeft,
+              submenus: []
+            }
+          )
+          group.menus.push(
+            {
+              href: `/${lang}/admin/wallet`,
+              label: dictionary.wallet || "Portefeuille",
+              active: pathname.includes("/wallet"),
+              icon: Wallet,
+              submenus: []
+            }
+          )
+          break;
+        case 'Settings':
+          // Gestion des utilisateurs de l'agence
+          group.menus.push(
+            {
+              href: `/${lang}/admin/users`,
+              label: "Gestion Équipe",
+              active: pathname.includes("/users"),
+              icon: Users,
+              submenus: []
+            }
+          )
+          group.menus.push(
+            {
+              href: `/${lang}/admin/profile`,
+              label: 'Profil',
+              active: pathname.includes("/profile"),
+              icon: UserCog,
+              submenus: []
+            }
+          )
+          break;
+        default:
+          group.menus.push(
+            {
+              href: `/${lang}/admin`,
+              label: "Dashboard Chef",
+              active: pathname === `/${lang}/admin` || pathname.includes("/dashboard"),
+              icon: LayoutGrid,
+              submenus: []
+            })
+          break;
+      }
+    })
+  }
+
+  /** 
+   * Gestionnaire - accès aux clients et fonctionnalités de base
+   */
+  if (isGestionnaire(user)) {
+    menu.forEach((group) => {
+      switch (group.groupLabel) {
+        case 'Contents':
+          group.menus.push(
+            {
+              href: `/${lang}/admin/transactions`,
+              label: dictionary.transactions || "Transactions",
+              active: pathname.includes("/transactions"),
+              icon: ArrowRightLeft,
+              submenus: []
+            }
+          )
+          group.menus.push(
+            {
+              href: `/${lang}/admin/users`,
+              label: "Clients",
+              active: pathname.includes("/users"),
+              icon: Users,
+              submenus: []
+            }
+          )
+          break;
+        case 'Settings':
+          group.menus.push(
+            {
+              href: `/${lang}/admin/profile`,
+              label: 'Profil',
+              active: pathname.includes("/profile"),
+              icon: UserCog,
+              submenus: []
+            }
+          )
+          break;
+        default:
+          group.menus.push(
+            {
+              href: `/${lang}/admin`,
+              label: "Dashboard",
+              active: pathname === `/${lang}/admin` || pathname.includes("/dashboard"),
+              icon: LayoutGrid,
+              submenus: []
+            })
+          break;
+      }
+    })
+  }
+
+  /** 
+   * Caissier - accès limité aux transactions
+   */
+  if (isCaissier(user)) {
+    menu.forEach((group) => {
+      switch (group.groupLabel) {
+        case 'Contents':
+          group.menus.push(
+            {
+              href: `/${lang}/admin/transactions`,
+              label: dictionary.transactions || "Transactions",
+              active: pathname.includes("/transactions"),
+              icon: ArrowRightLeft,
+              submenus: []
+            }
+          )
+          break;
+        case 'Settings':
+          group.menus.push(
+            {
+              href: `/${lang}/admin/profile`,
+              label: 'Profil',
+              active: pathname.includes("/profile"),
+              icon: UserCog,
+              submenus: []
+            }
+          )
+          break;
+        default:
+          group.menus.push(
+            {
+              href: `/${lang}/admin`,
+              label: "Dashboard",
+              active: pathname === `/${lang}/admin` || pathname.includes("/dashboard"),
+              icon: LayoutGrid,
+              submenus: []
+            })
+          break;
+      }
+    })
+  }
+
   return menu;
 
 }
@@ -189,4 +345,16 @@ const isAdmin = (user: ViaziCustomer) => {
 
 const isCustomer = (user: ViaziCustomer) => {
   return user?.customer ?? false
+}
+
+const isChefAgence = (user: any) => {
+  return user?.role === "CHEF_AGENCE"
+}
+
+const isGestionnaire = (user: any) => {
+  return user?.role === "GESTIONNAIRE"
+}
+
+const isCaissier = (user: any) => {
+  return user?.role === "CAISSIER"
 }

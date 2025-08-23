@@ -2,61 +2,60 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 
 import "../globals.css";
-import '@/utils/type/globalType'
+import "@/utils/type/globalType";
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Langs } from "@/utils/langs-config";
 import { getDictionary } from "@/utils/getDictionary";
 import { Toaster } from "@/components/ui/toaster";
+import { QueryProvider } from "@/providers/query-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.APP_URL
       ? `${process.env.APP_URL}`
       : process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : `http://localhost:${process.env.PORT || 3000}`
+      ? `https://${process.env.VERCEL_URL}`
+      : `http://localhost:${process.env.PORT || 3000}`
   ),
-  title: "Viazipay",
-  description:
-    "",
+  title: "Latrust",
+  description: "",
   alternates: {
     canonical: "/"
   },
   icons: {
-    icon: "", 
-
+    icon: ""
   },
   openGraph: {
     url: "/",
-    title: "Viazipay",
-    description:
-      "",
+    title: "Latrust",
+    description: "",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Viazipay",
-    description:
-      "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness."
+    title: "Latrust",
+    description: "Fond d'investissement"
   }
 };
 
 export default async function RootLayout({
-  children, params
+  children,
+  params
 }: Readonly<{
-  children: React.ReactNode, params: { lang: Langs }
+  children: React.ReactNode;
+  params: { lang: Langs };
 }>) {
-
-  const dictionary = await getDictionary(params.lang) 
+  const dictionary = await getDictionary(params.lang);
   return (
-    <html lang={params.lang} >
-      {/* <html lang={params.lang} suppressHydrationWarning> */}
+    <html lang={params.lang}>
       <body className={GeistSans.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -16,10 +16,10 @@ export function Navbar({ title, dictionary }: NavbarProps) {
           <SheetMenu dictionary={dictionary} />
           <h1 className="font-bold uppercase">{title}</h1>
         </div>
-        <div className="flex flex-1 items-center space-x-2 justify-end">
+        {/* <div className="flex flex-1 items-center space-x-2 justify-end">
           <ModeToggle />
           <UserNav />
-        </div>
+        </div> */}
       </div>
     </header>
   );
