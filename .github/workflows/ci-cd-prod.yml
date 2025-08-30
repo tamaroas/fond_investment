@@ -37,4 +37,4 @@ jobs:
                 docker rm PRO_LATRUST_FRONTEND || true
                 docker rmi latrusft_front:V1 || true
                 docker build -t latrusft_front:V1 .
-                docker run -d --network sfo -p 8005:3000 --name PRO_LATRUST_FRONTEND latrusft_front:V1
+                docker run -d -p 8005:3000 --name PRO_LATRUST_FRONTEND latrusft_front:V1
