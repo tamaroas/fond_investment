@@ -7,7 +7,6 @@ export interface AgencyStats {
   totalSoldes: number;
   totalDepots: number;
   totalRetraits: number;
-  soldePlans: number;
 }
 
 class ChefAgenceService extends HttpService {
@@ -20,8 +19,7 @@ class ChefAgenceService extends HttpService {
         nombrePlans: 0,
         totalSoldes: 0,
         totalDepots: 0,
-        totalRetraits: 0,
-        soldePlans: 0
+        totalRetraits: 0
       };
     } catch (error) {
       console.error('Erreur getAgencyStats:', error);
@@ -31,8 +29,7 @@ class ChefAgenceService extends HttpService {
         nombrePlans: 0,
         totalSoldes: 0,
         totalDepots: 0,
-        totalRetraits: 0,
-        soldePlans: 0
+        totalRetraits: 0
       };
     }
   }

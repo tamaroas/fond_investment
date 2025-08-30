@@ -35,9 +35,9 @@ export type UserType = {
     role: string;
     telephone: string;
     agenceId?: string;
-    administrator: Administrator | null;
-    customer: Customer | null;
     originalRole?: string;
     originalAdministrator?: Administrator | null;
+    administrator: Administrator | null;
+    customer: Customer | null;
 }
 

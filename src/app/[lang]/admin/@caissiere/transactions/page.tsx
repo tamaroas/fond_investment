@@ -260,7 +260,7 @@ function TransactionsPage() {
 
     const cotisationData = {
       montant: parseFloat(data.montant),
-      origineFond: data.origineFond || "AGENCE",
+      origineFond: "COMPTE_CLIENT",
       contratId: selectedContrat,
     };
 
@@ -338,7 +338,7 @@ function TransactionsPage() {
           <div class="info">
             <p><strong>N° Compte:</strong> ${compteInfo?.numeroCompte}</p>
             <p><strong>Titulaire:</strong> ${compteInfo?.client?.prenom} ${compteInfo?.client?.nom}</p>
-            <p><strong>Agence:</strong> ${user?.agenceId ? `Agence ${user.agenceId}` : 'Agence'}</p>
+            <p><strong>Agence:</strong> ${user?.agenceId || 'Agence'}</p>
             <p><strong>Caissier:</strong> ${user?.prenom} ${user?.nom}</p>
           </div>
           <div class="amount">
@@ -386,7 +386,7 @@ function TransactionsPage() {
           <div class="info">
             <p><strong>N° Compte:</strong> ${compteInfo?.numeroCompte}</p>
             <p><strong>Titulaire:</strong> ${compteInfo?.client?.prenom} ${compteInfo?.client?.nom}</p>
-            <p><strong>Agence:</strong> ${user?.agenceId ? `Agence ${user.agenceId}` : 'Agence'}</p>
+            <p><strong>Agence:</strong> ${user?.agenceId || 'Agence'}</p>
             <p><strong>Caissier:</strong> ${user?.prenom} ${user?.nom}</p>
           </div>
           <div class="amount">
@@ -435,7 +435,7 @@ function TransactionsPage() {
             <p><strong>N° Compte:</strong> ${compteInfo?.numeroCompte}</p>
             <p><strong>Titulaire:</strong> ${compteInfo?.client?.prenom} ${compteInfo?.client?.nom}</p>
             <p><strong>Plan d'épargne:</strong> ${contratInfo?.typeContrat?.nom}</p>
-            <p><strong>Agence:</strong> ${user?.agenceId ? `Agence ${user.agenceId}` : 'Agence'}</p>
+            <p><strong>Agence:</strong> ${user?.agenceId || 'Agence'}</p>
             <p><strong>Caissier:</strong> ${user?.prenom} ${user?.nom}</p>
           </div>
           <div class="amount">
@@ -483,7 +483,7 @@ function TransactionsPage() {
             <p><strong>N° Compte:</strong> ${compteInfo?.numeroCompte}</p>
             <p><strong>Titulaire:</strong> ${compteInfo?.client?.prenom} ${compteInfo?.client?.nom}</p>
             <p><strong>Plan d'investissement:</strong> ${contratInfo?.typeContrat?.nom}</p>
-            <p><strong>Agence:</strong> ${user?.agenceId ? `Agence ${user.agenceId}` : 'Agence'}</p>
+            <p><strong>Agence:</strong> ${user?.agenceId || 'Agence'}</p>
             <p><strong>Caissier:</strong> ${user?.prenom} ${user?.nom}</p>
           </div>
           <div class="amount">

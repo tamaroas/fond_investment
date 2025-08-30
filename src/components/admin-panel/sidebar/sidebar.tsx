@@ -82,11 +82,11 @@ export default function Sidebar() {
 
   // Admin return function
   const handleReturnToAdminDashboard = () => {
-    if (user?.originalAdministrator !== undefined && user?.originalRole) {
+    if (user?.originalAdministrator !== undefined) {
       const adminUser = {
         ...user,
         administrator: user.originalAdministrator,
-        role: user.originalRole
+        role: user.originalRole || user.role
       };
       delete adminUser.originalAdministrator;
       delete adminUser.originalRole;

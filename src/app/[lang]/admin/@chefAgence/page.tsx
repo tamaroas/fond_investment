@@ -154,7 +154,7 @@ function ChefAgencePage({ params }: { params: { lang: Langs } }) {
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-orange-800">
-              {stats?.soldePlans?.toLocaleString().replace(/\s/g, ' ') || 0} FCFA
+              {stats?.totalSoldes?.toLocaleString().replace(/\s/g, ' ') || 0} FCFA
             </p>
             <p className="text-sm text-orange-600">Solde des plans souscrits</p>
           </CardContent>

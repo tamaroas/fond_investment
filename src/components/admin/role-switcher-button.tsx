@@ -63,11 +63,11 @@ export function RoleSwitcherButton({ targetRole, children, className }: RoleSwit
   };
 
   const switchBackToAdmin = () => {
-    if (user?.originalAdministrator !== undefined && user?.originalRole) {
+    if (user?.originalAdministrator !== undefined) {
       const adminUser = {
         ...user,
         administrator: user.originalAdministrator,
-        role: user.originalRole
+        role: user.originalRole || user.role
       };
       delete adminUser.originalAdministrator;
       delete adminUser.originalRole;

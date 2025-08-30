@@ -58,7 +58,6 @@ const AffiliationUserClientTab = () => {
         compteId: data?.id || "",
         typeContratId: "",
         description: "",
-        montantVersementEncompte: false,
         typeVersement: "MENSUEL",
         montantVersementInitial: 0,
         montantVersementPeriodique: 0,
@@ -74,7 +73,6 @@ const AffiliationUserClientTab = () => {
           quotePart: 0,
           montant: 0
         }],
-        origineFond: "",
       },
     });
 
@@ -168,7 +166,7 @@ const AffiliationUserClientTab = () => {
     const printContent = `
       <html>
         <head>
-          <title>Reçu d'Affiliation - Plan ${affiliation.typeContratId}</title>
+          <title>Reçu d'Affiliation - Plan ${affiliation.typePlanId}</title>
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px; }
@@ -198,7 +196,7 @@ const AffiliationUserClientTab = () => {
               </tr>
               <tr>
                 <td>Type de Plan</td>
-                <td>${affiliation.typeContratId}</td>
+                <td>${affiliation.typePlanId}</td>
               </tr>
               <tr>
                 <td>Description</td>
