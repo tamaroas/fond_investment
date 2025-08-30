@@ -41,7 +41,7 @@ export function RoleSwitcherButton({ targetRole, children, className }: RoleSwit
         ...user,
         originalAdministrator: user.administrator, // Sauvegarder le statut admin original
         originalRole: user.role, // Sauvegarder le rôle original
-        administrator: false, // Désactiver le statut admin temporairement
+        administrator: null, // Désactiver le statut admin temporairement
         role: targetRole
       };
       
@@ -63,7 +63,7 @@ export function RoleSwitcherButton({ targetRole, children, className }: RoleSwit
   };
 
   const switchBackToAdmin = () => {
-    if (user?.originalAdministrator !== undefined) {
+    if (user?.originalAdministrator !== undefined && user?.originalRole) {
       const adminUser = {
         ...user,
         administrator: user.originalAdministrator,

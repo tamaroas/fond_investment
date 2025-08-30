@@ -56,8 +56,9 @@ const AffiliationUserClientTab = () => {
       resolver: zodResolver(AffiliationSchema),
       defaultValues: {
         compteId: data?.id || "",
-        typePlanId: "",
+        typeContratId: "",
         description: "",
+        montantVersementEncompte: false,
         typeVersement: "MENSUEL",
         montantVersementInitial: 0,
         montantVersementPeriodique: 0,
@@ -73,6 +74,7 @@ const AffiliationUserClientTab = () => {
           quotePart: 0,
           montant: 0
         }],
+        origineFond: "",
       },
     });
 
@@ -90,7 +92,7 @@ const AffiliationUserClientTab = () => {
   const handleTypePlanChange = (value: string) => {
     const selected = typePlans?.find((tc: any) => tc.publicId === value);
     setSelectedTypePlan(selected);
-    affiliationForm.setValue("typePlanId", value);
+    affiliationForm.setValue("typeContratId", value);
     if(selected) {
       if (selected.hasSignataires) {
         appendSignataire({ nom: "", prenom: "", telephone: "", lienClient: "" });
@@ -123,7 +125,7 @@ const AffiliationUserClientTab = () => {
     affiliationForm.reset(
       {
         compteId: data?.id || "",
-        typePlanId: "",
+        typeContratId: "",
         description: "",
         typeVersement: "MENSUEL",
         montantVersementInitial: 0,
@@ -166,7 +168,7 @@ const AffiliationUserClientTab = () => {
     const printContent = `
       <html>
         <head>
-          <title>Reçu d'Affiliation - Plan ${affiliation.typePlanId}</title>
+          <title>Reçu d'Affiliation - Plan ${affiliation.typeContratId}</title>
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px; }
@@ -196,7 +198,7 @@ const AffiliationUserClientTab = () => {
               </tr>
               <tr>
                 <td>Type de Plan</td>
-                <td>${affiliation.typePlanId}</td>
+                <td>${affiliation.typeContratId}</td>
               </tr>
               <tr>
                 <td>Description</td>
@@ -287,7 +289,7 @@ const AffiliationUserClientTab = () => {
                   />
                   <FormField
                     control={affiliationForm.control}
-                    name="typePlanId"
+                    name="typeContratId"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Type de plan</FormLabel>
@@ -701,7 +703,7 @@ const AffiliationUserClientTab = () => {
               {listContrats?.map((affiliation) => (
                 <TableRow key={affiliation.id}>
                   <TableCell>{affiliation.id}</TableCell>
-                  <TableCell>{affiliation.typePlanId}</TableCell>
+                  <TableCell>{affiliation.typeContratId}</TableCell>
                   <TableCell>{affiliation.description}</TableCell>
                   <TableCell>{affiliation.montantVersementInitial.toLocaleString()} FCFA</TableCell>
                   <TableCell>{affiliation.montantVersementPeriodique.toLocaleString()} FCFA</TableCell>
