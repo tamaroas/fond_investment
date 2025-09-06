@@ -4,7 +4,7 @@
  */
 import cookies from "js-cookie";
 
-export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL || "http://backend.latrust.fr/api/v1";
+export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL || "https://backend.latrust.fr/api/v1";
 console.log(BASE_API_URL);
 
 // Simple flag to prevent infinite refresh loops
