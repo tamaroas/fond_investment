@@ -581,7 +581,7 @@ function TransactionsPage() {
                         <TableHeader>
                           <TableRow>
                             <TableHead>N° Compte</TableHead>
-                            <TableHead>Nom</TableHead>
+                            <TableHead>Nom </TableHead>
                             <TableHead>Prénom</TableHead>
                             <TableHead>Solde</TableHead>
                             <TableHead>Action</TableHead>
